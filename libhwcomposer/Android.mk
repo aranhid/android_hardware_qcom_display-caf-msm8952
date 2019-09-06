@@ -6,7 +6,7 @@ LOCAL_MODULE                  := hwcomposer.$(TARGET_BOARD_PLATFORM)
 LOCAL_VENDOR_MODULE           := true
 LOCAL_MODULE_RELATIVE_PATH    := hw
 LOCAL_MODULE_TAGS             := optional
-LOCAL_C_INCLUDES              := $(common_includes) $(kernel_includes) \
+LOCAL_C_INCLUDES              := $(common_includes) \
                                  $(TOP)/external/skia/include/core \
                                  $(TOP)/external/skia/include/images \
                                  frameworks/native/libs/arect/include
@@ -16,6 +16,8 @@ LOCAL_C_INCLUDES              += $(TARGET_OUT_HEADERS)/qdcm/inc \
                                  $(TARGET_OUT_HEADERS)/common/inc \
                                  $(TARGET_OUT_HEADERS)/pp/inc
 endif
+
+LOCAL_HEADER_LIBRARIES        := generated_kernel_headers
 
 LOCAL_SHARED_LIBRARIES        := $(common_libs) libEGL liboverlay \
                                  libhdmi libqdutils libhardware_legacy \
@@ -40,7 +42,6 @@ ifeq ($(VSYNC_EVENT_PHASE_OFFSET_NS),)
     LOCAL_CFLAGS += -DDYNAMIC_FPS
 endif
 
-LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 LOCAL_SRC_FILES               := hwc.cpp          \
                                  hwc_utils.cpp    \
                                  hwc_uevents.cpp  \
